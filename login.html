@@ -1,0 +1,221 @@
+<html>
+   <head>
+      <title>login</title>
+      <style>
+         body, html {
+            padding: 0;
+            margin: 0;
+         }
+         #fullsize {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to left top, #ff00f0, #ffff00)
+            /*background-color: #00f000;*/
+         }
+         
+         #login-form {
+            background-color: white;
+            width: 30%;
+            height: 80%;
+            border: 1px solid grey;
+            border-radius: 7%;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            padding-top: 2%;
+         }
+         
+         #input-form {
+            width: 80%;
+            text-align: left;  
+         }
+         
+         #input-form>div>input{
+            width: 100%;
+            height: 30%;
+            padding-left: 2%;
+            padding-right: 2%;
+            
+            transition-property: height;
+            transition-duration: 0.5s
+         }
+         
+         #login-buttons {
+            margin-top: 30%;  
+            width: 80%;
+            height: 10%;
+            display: block;
+            position: relative;
+         }
+         
+         button {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+            border: 0.1px solid #b0b000;
+            background-color: #eede00;
+            color: white;
+            text-shadow: -0.5px 0 grey, 0 0.5px grey, 0.5px 0 grey, 0 -0.5px grey;
+            cursor: grab;
+         }
+         
+         #button {
+            transition-property: left;
+            transition-duration: 0.5s;  
+         }
+         
+         #finish {
+            position: absolute;
+            width: 100%;
+            height: 0;
+            top: 0;
+            
+            background-color: rgba(255, 255, 255, 0);
+            opacity: 0;
+            
+            transition-property: background-color;
+            transition-duration: 1s;
+               
+            animation: starting 1s;
+            
+         }
+         
+         @keyframes starting {
+            0%{
+               opacity: 1;
+               height: 100%;
+               background-color: rgba(255, 255, 255, 100);
+            }
+            100% {
+               opacity: 0;  
+               height: 100%;
+            }
+         }
+         
+      </style>
+   </head>
+   <body>
+      <div id="fullsize">
+         <div id="login-form">
+            <div id="login-title">
+               <h1>login</h1>
+            </div>
+            <div id="input-form">
+               <div id="input-id">
+                  <h3>ID</h3>
+                  <input placeholder="id를 입력해주세요"/>
+               </div>
+               <div id="input-pw">
+                  <h3>PW</h3>
+                  <input type="password" placeholder="pw를 입력해주세요" />
+               </div>
+            </div>
+            <div id="login-buttons">
+               <div id="button" style="position:absolute; width: 30%; height: 100%;">
+                  <button onclick="movePage('html.html')" type="button" value="login"><h3>login</h3></button>
+                  <div id="button-blocker" style="position: absolute; top:0; left:0;width: 100%; height: 100%;"></div>
+               </div>
+            </div>
+         </div>
+      </div>
+      
+      <div id="finish">
+         
+      </div>   
+      <script type="text/javascript">
+         
+                  
+      </script>
+      <script type="text/javascript">
+         var input_array = document.querySelectorAll("#input-form>div>input");
+         
+         input_array.forEach((element, index) => {
+            element.addEventListener("focus", function(){
+               input_array[index].style.height = "40%";
+            });
+            element.addEventListener("blur", function(){
+               input_array[index].style.height = "30%";
+            });
+         })
+         
+         function movePage(link){
+            document.getElementById("finish").style.height = "100%";
+            document.getElementById("finish").style.opacity = "1";
+            document.getElementById("finish").style.backgroundColor = "rgba(255,  255, 255, 100)";
+            setTimeout(function(){
+               location.href= "html.html";
+            }, 1000)
+         }
+         
+         var loginButton = document.querySelector("#button");
+         
+         var loginButton_left_status = 35;
+         var loginButton_changable_status = true;
+         
+         loginButton.addEventListener("mouseover", function(){
+            
+            if(loginButton_changable_status){
+               console.log
+               loginButton.style.left = (35+loginButton_left_status) + "%";
+               loginButton_changable_status = false;
+               loginButton_left_status = -loginButton_left_status;
+               
+               setTimeout(function(){
+                  loginButton_changable_status = true;
+               }, 100); 
+                 
+            }
+            
+            
+            
+            
+         })
+         
+         var login_info = [
+            {id: "id", pw:"test"},
+            {id: "user", pw:"test"},
+            {id: "admin", pw:"test"},
+         ]
+         
+         
+         var id_form = document.querySelector("#input-id>input")
+         var pw_form = document.querySelector("#input-pw>input")
+         var buttonBlocker = document.getElementById("button-blocker");
+         
+         
+         function loginExecute(){
+            setTimeout(function(){
+               var user = login_info.find(element => element.id == id_form.value && element.pw == pw_form.value)
+               console.log(user);
+               if(user != undefined){
+                  loginButton_changable_status = false;
+                  buttonBlocker.style.height = "0"
+               }
+               else{
+                  loginButton_changable_status = true;
+                  buttonBlocker.style.height = "100%"
+               }   
+            }, 100)  
+         }
+         
+         id_form.addEventListener("keydown", function(){
+            loginExecute();
+         })
+         
+         pw_form.addEventListener("keydown", function(){
+            loginExecute();
+         })
+      </script>
+    </body>
+   
+   
+      
+</html>

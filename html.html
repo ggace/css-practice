@@ -1,0 +1,108 @@
+<html>
+   <head>
+      <title>html</title>
+      <style>
+         
+         *{
+            background-color: white;
+            color: black;
+         }
+         html, body {
+            margin: 0;
+            padding: 0;
+         }
+         #title{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 15%;
+         }
+         #navbar{
+           width: 30%;
+           display: flex;  
+           justify-content: space-around;
+         }
+         #nav-menu:hover{
+             text-decoration: underline;
+         }
+         
+         #nav-menu{
+            cursor: grab;  
+         }
+         
+         a{
+            color: black; 
+            text-decoration: none;
+         }
+         
+         #finish {
+            position: absolute;
+            width: 100%;
+            height: 0;
+            top: 0;
+            
+            background-color: rgba(255, 255, 255, 0);
+            opacity: 0;
+            
+            transition-property: background-color;
+            transition-duration: 1s;
+               
+            animation: starting 1s;
+            
+         }
+         
+         @keyframes starting {
+            0%{
+               opacity: 1;
+               height: 100%;
+               background-color: rgba(255, 255, 255, 100);
+            }
+            100% {
+               opacity: 0;  
+               height: 100%;
+            }
+         }
+      </style>
+      
+      
+   </head>
+   <body>
+      <div id="title">
+         <h1 style="margin-left: 2%; margin-right:2%">Title of This Page</h1>
+         <div id="navbar">
+            <h2 id="nav-menu">home</h2>
+            <h2 id="nav-menu">content</h2>
+            <h2 id="nav-menu"onclick="gotoLoginPage()">login</h2>
+         </div>
+      </div>
+      <hr />
+      
+      
+      <div id="finish">
+         
+      </div>   
+      
+      <script type="text/javascript">
+         var input_array = document.querySelectorAll("#input-form>div>input");
+         
+         input_array.forEach((element, index) => {
+            element.addEventListener("focus", function(){
+               input_array[index].style.height = "40%";
+            });
+            element.addEventListener("blur", function(){
+               input_array[index].style.height = "30%";
+            });
+         })
+         
+         function gotoLoginPage(){
+            document.getElementById("finish").style.height = "100%";
+            document.getElementById("finish").style.opacity = "1";
+            document.getElementById("finish").style.backgroundColor = "rgba(255,  255, 255, 100)";
+            setTimeout(function(){
+               location.href= "login.html";
+            }, 1000)
+         }
+      </script>
+   </body>
+</html>
